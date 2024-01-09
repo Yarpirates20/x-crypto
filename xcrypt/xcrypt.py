@@ -1,7 +1,20 @@
 #!/usr/bin/env python3
 """
-Author: Rob Samoraj
-Title: xcrypt
-Description: Cryptography CLI toolbox
+Cryptography CLI toolbox
+
+SYNOPSIS
+========
+
+::
+    
+        xcrypt [OPTION]... [FILE]...
+
+DESCRIPTION
+===========
+#TODO: xcrypt is a CLI toolbox for cryptography. It provides a set of tools
+
+EXAMPLES
+========
+
 """
 
