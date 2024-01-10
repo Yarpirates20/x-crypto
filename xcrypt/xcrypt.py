@@ -11,10 +11,12 @@ SYNOPSIS
 
 DESCRIPTION
 ===========
+
 #TODO: xcrypt is a CLI toolbox for cryptography. It provides a set of tools
 
 EXAMPLES
 ========
+
 
 """
 
