@@ -26,6 +26,7 @@ EXAMPLES
 '1949000055819034788318500292382655163516478497'
 
 """
+import binascii
 import os
 from typing import Union
 
@@ -41,3 +42,29 @@ def display_results(original_input: [str, int],converted: Union[int, str]) -> No
     print(f"\nOriginal input({type(original_input)}): {original_input}")
     print(f"Converted value({type(converted)}): {converted} ")
 
+def text2int(text: str) -> int:
+    """ Converts a string to an integer """
+    try:
+        # convert string to hex
+        hexstr =  binascii.hexlify(text.encode('utf-8'))
+
+        # convert hex to int
+        integer_m = int(hexstr, 16)
+        return integer_m
+    except ValueError:
+        raise ValueError(f"Error: '{text}' could not be converted to an integer")
+    
+
+def int2text(integer: int) -> str:
+    """ Converts an integer to a string """
+    try:
+        # convert int to hex
+        back2hex = f"{integer:x}"
+
+        # convert hex to string
+        back2str = binascii.unhexlify(back2hex.encode('utf-8'))
+
+        return back2str
+    
+    except ValueError:
+        raise ValueError(f"Error: '{integer}' could not be converted to a string")
