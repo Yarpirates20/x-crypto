@@ -26,9 +26,11 @@ EXAMPLES
 '1949000055819034788318500292382655163516478497'
 
 """
+import argparse
 import binascii
 import os
-from typing import Union
+import sys
+from typing import List, Union
 
 def display_results(original_input: [str, int],converted: Union[int, str]) -> None: 
     """ Display the results of the conversion to the user """
@@ -68,3 +70,8 @@ def int2text(integer: int) -> str:
     
     except ValueError:
         raise ValueError(f"Error: '{integer}' could not be converted to a string")
+    
+def get_options(argv: List[str] = sys.argv[1:]) -> argparse.Namespace:
+    """ Get command line options """
+    parser = argparse.ArgumentParser()
+    
