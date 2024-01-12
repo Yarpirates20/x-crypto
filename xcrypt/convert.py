@@ -32,9 +32,11 @@ import os
 import sys
 from typing import List, Union
 
-def display_results(original_input: [str, int],converted: Union[int, str]) -> None: 
+
+def display_results(original_input: Union[str, int],
+                    converted: Union[int, str]) -> None:
     """ Display the results of the conversion to the user """
-    
+
     # Clear the screen
     if os.name == 'nt':  # For Windows
         os.system('cls')
@@ -44,18 +46,20 @@ def display_results(original_input: [str, int],converted: Union[int, str]) -> No
     print(f"\nOriginal input({type(original_input)}): {original_input}")
     print(f"Converted value({type(converted)}): {converted} ")
 
+
 def text2int(text: str) -> int:
     """ Converts a string to an integer """
     try:
         # convert string to hex
-        hexstr =  binascii.hexlify(text.encode('utf-8'))
+        hexstr = binascii.hexlify(text.encode('utf-8'))
 
         # convert hex to int
         integer_m = int(hexstr, 16)
         return integer_m
     except ValueError:
-        raise ValueError(f"Error: '{text}' could not be converted to an integer")
-    
+        raise ValueError(
+            f"Error: '{text}' could not be converted to an integer")
+
 
 def int2text(integer: int) -> str:
     """ Converts an integer to a string """
@@ -67,11 +71,31 @@ def int2text(integer: int) -> str:
         back2str = binascii.unhexlify(back2hex.encode('utf-8'))
 
         return back2str
-    
+
     except ValueError:
-        raise ValueError(f"Error: '{integer}' could not be converted to a string")
-    
+        raise ValueError(
+            f"Error: '{integer}' could not be converted to a string")
+
+def string_type(text: str) -> str:
+    """ Validate the type of input string """
+    try:
+        text = str(text)
+        return text
+    except ValueError as ex:
+        raise argparse.ArgumentTypeError(ex)
+
 def get_options(argv: List[str] = sys.argv[1:]) -> argparse.Namespace:
     """ Get command line options """
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(prog='xcrypt')
+    subparsers = parser.add_subparsers(title='subcommands', help='conversion operations')
+
+    convert_parser = subparsers.add_parser('convert')
     
+    convert_parser.add_argument('input', 
+                        type=str, 
+                        action='store',
+                        help='Input to convert')
+    
+    options = parser.parse_args((argv))
+
+    return options
