@@ -76,6 +76,7 @@ def int2text(integer: int) -> str:
         raise ValueError(
             f"Error: '{integer}' could not be converted to a string")
 
+
 def string_type(text: str) -> str:
     """ Validate the type of input string """
     try:
@@ -84,18 +85,38 @@ def string_type(text: str) -> str:
     except ValueError as ex:
         raise argparse.ArgumentTypeError(ex)
 
+
 def get_options(argv: List[str] = sys.argv[1:]) -> argparse.Namespace:
     """ Get command line options """
     parser = argparse.ArgumentParser(prog='xcrypt')
-    subparsers = parser.add_subparsers(title='subcommands', help='conversion operations')
+    subparsers = parser.add_subparsers(title='subcommands',
+                                       help='conversion operations')
 
     convert_parser = subparsers.add_parser('convert')
-    
-    convert_parser.add_argument('input', 
-                        type=str, 
-                        action='store',
-                        help='Input to convert')
-    
-    options = parser.parse_args((argv))
+
+    convert_parser.add_argument('input',
+                                action='store',
+                                help='Input to convert')
+
+    convert_parser.add_argument('-t',
+                                '--type',
+                                action='store',
+                                choices=['str', 'int'],
+                                help='Type of input',
+                                default='str')
+
+    options = parser.parse_args(argv)
 
     return options
+
+
+# def convert_input(user_input: Union[str, int] )
+
+
+def main() -> None:
+    """ Main function """
+    options = get_options(sys.argv[1:])
+
+
+if __name__ == '__main__':
+    args = get_options()
