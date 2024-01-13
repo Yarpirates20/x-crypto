@@ -33,21 +33,15 @@ import os
 import sys
 from typing import List, Union
 
-
+#--------------------------------------------------
 def display_results(original_input: Union[str, int],
                     converted: Union[int, str]) -> None:
     """ Display the results of the conversion to the user """
 
-    # Clear the screen
-    # if os.name == 'nt':  # For Windows
-    #     os.system('cls')
-    # else:  # For Unix/Linux
-    #     os.system('clear')
-
     print(f"\nOriginal input({type(original_input)}): {original_input}")
     print(f"Converted value({type(converted)}): {converted} ")
 
-
+#--------------------------------------------------
 def text2int(text: str) -> int:
     """ Converts a string to an integer """
     try:
@@ -61,12 +55,12 @@ def text2int(text: str) -> int:
         raise ValueError(
             f"Error: '{text}' could not be converted to an integer")
 
-
+#--------------------------------------------------
 def int2text(integer: int) -> str:
     """ Converts an integer to a string """
     try:
         # convert int to hex
-        back2hex = f"{integer:x}"
+        back2hex = f"{int(integer):x}"
 
         # convert hex to string
         back2str = binascii.unhexlify(back2hex.encode('utf-8'))
@@ -77,7 +71,7 @@ def int2text(integer: int) -> str:
         raise ValueError(
             f"Error: '{integer}' could not be converted to a string")
 
-
+#--------------------------------------------------
 def string_type(text: str) -> str:
     """ Validate the type of input string """
     try:
@@ -85,10 +79,11 @@ def string_type(text: str) -> str:
         return text
     except ValueError as ex:
         raise argparse.ArgumentTypeError(ex)
-
+#--------------------------------------------------
 # Map type names to functions
 type_to_function = {'str': text2int, 'int': int2text}
 
+#--------------------------------------------------
 def get_options(argv: List[str] = sys.argv[1:]) -> argparse.Namespace:
     """ Get command line options """
     parser = argparse.ArgumentParser(prog='xcrypt')
@@ -107,15 +102,21 @@ def get_options(argv: List[str] = sys.argv[1:]) -> argparse.Namespace:
                                 choices=list(type_to_function.keys()),
                                 help='Type of input',
                                 default='str')
+    
+    convert_parser.add_argument('-o', 
+                                '--output',
+                                action='store',
+                                choices=['b'],
+                                help='Output type')
 
     options = parser.parse_args(argv)
 
     return options
 
-
+#--------------------------------------------------
 # def convert_input(user_input: Union[str, int] )
 
-
+#--------------------------------------------------
 def main() -> None:
     """ Main function """
     options = get_options(sys.argv[1:])
@@ -126,6 +127,6 @@ def main() -> None:
 
 
 
-
+#--------------------------------------------------
 if __name__ == '__main__':
     main()
