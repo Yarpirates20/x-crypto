@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 Input conversion module
 
@@ -38,10 +39,10 @@ def display_results(original_input: Union[str, int],
     """ Display the results of the conversion to the user """
 
     # Clear the screen
-    if os.name == 'nt':  # For Windows
-        os.system('cls')
-    else:  # For Unix/Linux
-        os.system('clear')
+    # if os.name == 'nt':  # For Windows
+    #     os.system('cls')
+    # else:  # For Unix/Linux
+    #     os.system('clear')
 
     print(f"\nOriginal input({type(original_input)}): {original_input}")
     print(f"Converted value({type(converted)}): {converted} ")
@@ -85,6 +86,8 @@ def string_type(text: str) -> str:
     except ValueError as ex:
         raise argparse.ArgumentTypeError(ex)
 
+# Map type names to functions
+type_to_function = {'str': text2int, 'int': int2text}
 
 def get_options(argv: List[str] = sys.argv[1:]) -> argparse.Namespace:
     """ Get command line options """
@@ -101,7 +104,7 @@ def get_options(argv: List[str] = sys.argv[1:]) -> argparse.Namespace:
     convert_parser.add_argument('-t',
                                 '--type',
                                 action='store',
-                                choices=['str', 'int'],
+                                choices=list(type_to_function.keys()),
                                 help='Type of input',
                                 default='str')
 
@@ -116,7 +119,13 @@ def get_options(argv: List[str] = sys.argv[1:]) -> argparse.Namespace:
 def main() -> None:
     """ Main function """
     options = get_options(sys.argv[1:])
+    conversion_function = type_to_function[options.type]
+
+    result = conversion_function(options.input)
+    display_results(options.input, result)
+
+
 
 
 if __name__ == '__main__':
-    args = get_options()
+    main()
