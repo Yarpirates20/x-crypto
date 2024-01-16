@@ -72,13 +72,13 @@ def int2text(integer: int) -> str:
             f"Error: '{integer}' could not be converted to a string")
 
 #--------------------------------------------------
-def string_type(text: str) -> str:
-    """ Validate the type of input string """
-    try:
-        text = str(text)
-        return text
-    except ValueError as ex:
-        raise argparse.ArgumentTypeError(ex)
+# def string_type(text: str) -> str:
+#     """ Validate the type of input string """
+#     try:
+#         text = str(text)
+#         return text
+#     except ValueError as ex:
+#         raise argparse.ArgumentTypeError(ex)
 #--------------------------------------------------
 # Map type names to functions
 type_to_function = {'str': text2int, 'int': int2text}
@@ -92,9 +92,6 @@ def get_options(argv: List[str] = sys.argv[1:]) -> argparse.Namespace:
 
     convert_parser = subparsers.add_parser('convert')
 
-    convert_parser.add_argument('input',
-                                action='store',
-                                help='Input to convert')
 
     convert_parser.add_argument('-t',
                                 '--type',
@@ -102,11 +99,23 @@ def get_options(argv: List[str] = sys.argv[1:]) -> argparse.Namespace:
                                 choices=list(type_to_function.keys()),
                                 help='Type of input',
                                 default='str')
+
+    convert_parser.add_argument('input',
+                                action='store',
+                                help='Input to convert')
+    # convert_parser.add_argument('-s',
+    #                             '--string',
+    #                             action='store',
+    #                             type=string_type,
+    #                             help='String to convert'
+    #                             )
+    
     
     convert_parser.add_argument('-o', 
                                 '--output',
                                 action='store',
-                                choices=['b'],
+                                choices=['bin', 'hex', 'int', 'base64', 'str'],
+                                default='hex',
                                 help='Output type')
 
     options = parser.parse_args(argv)
