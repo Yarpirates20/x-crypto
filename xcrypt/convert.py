@@ -72,13 +72,24 @@ def int2text(integer: int) -> str:
             f"Error: '{integer}' could not be converted to a string")
 
 #--------------------------------------------------
-# def string_type(text: str) -> str:
-#     """ Validate the type of input string """
-#     try:
-#         text = str(text)
-#         return text
-#     except ValueError as ex:
-#         raise argparse.ArgumentTypeError(ex)
+def is_string_type(value: str) -> bool:
+    """Check if a value is a string and not numeric"""
+    try:
+        float(value)
+        return False
+    except ValueError:
+        return True
+
+
+#--------------------------------------------------
+def is_int_type(value: str) -> bool:
+    """Check if a value is an integer"""
+    try:
+        int(value)
+        return True
+    except ValueError:
+        return False
+    
 #--------------------------------------------------
 # Map type names to functions
 type_to_function = {'str': text2int, 'int': int2text}

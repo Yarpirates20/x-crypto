@@ -52,8 +52,21 @@ class TestConvert:
 
         assert xcrypt.convert.int2text(310939249775) == b'Hello'
 
-    # def test_string_type(self):
-    #     """ Test string_type() """
-    #     assert xcrypt.convert.string_type("Hello") == "Hello"
+    def test_is_string_type(self):
+        """ Test string_type() """
+        assert xcrypt.convert.is_string_type("Hello") == True
+        assert xcrypt.convert.is_string_type("1234") == False
+        assert xcrypt.convert.is_string_type("12.34") == False
 
+    def test_is_int_type(self):
+        """ Test is_int_type() """
+        assert xcrypt.convert.is_int_type("Hello") == False
+        assert xcrypt.convert.is_int_type("1234") == True
+        assert xcrypt.convert.is_int_type("12.34") == False
+
+    def test_display_results(self):
+        """ Test display_results() """
+        assert xcrypt.convert.display_results("Hello", 1234) == None
+        assert xcrypt.convert.display_results(1234, "Hello") == None
+        assert xcrypt.convert.display_results(1234, 1234) == None
 
