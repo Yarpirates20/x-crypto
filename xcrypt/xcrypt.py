@@ -20,4 +20,17 @@ EXAMPLES
 
 """
 
+import sys
+import os
 
+import convert, Command
+
+
+
+def main() -> None:
+    """ Main function """
+    command1 = Command.Convert()
+    command1.execute()
+
+if __name__ == "__main__":
+        main()

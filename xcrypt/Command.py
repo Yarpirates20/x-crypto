@@ -35,3 +35,13 @@ class Convert(Command):
 
         result = conversion_function(options.input)
         convert.display_results(options.input, result)
+
+def main() -> None:
+    """ Main function """
+    options1 = argparse.Namespace()
+    command1 = Convert()
+    command1.execute()
+
+if __name__ == "__main__":
+    main()
+
