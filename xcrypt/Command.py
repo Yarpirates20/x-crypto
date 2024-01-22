@@ -19,6 +19,14 @@ import argparse
 import convert as convert
 
 class Command:
+    @classmethod
+    def arguments(
+        cls,
+        sub_parser: argparse.ArgumentParser
+    ) -> None:
+        """ Add command line arguments to parser """
+        pass
+
     def __init__(self) -> None:
         pass
 
@@ -26,6 +34,22 @@ class Command:
         pass
 
 class Convert(Command):
+    @classmethod
+    def arguments(
+        cls,
+        convert_parser: argparse.ArgumentParser
+    ) -> None:
+        convert_parser.add_argument('-t',
+                            '--type',
+                            action='store',
+                            choices=list(convert.type_to_function.keys()),
+                            help='Type of input',
+                            default='str')
+
+        convert_parser.add_argument('input',
+                            action='store',
+                            help='Input to convert')
+        
     def __init__(self) -> None:
         super().__init__()
 
@@ -40,7 +64,7 @@ def main() -> None:
     """ Main function """
     options1 = argparse.Namespace()
     command1 = Convert()
-    command1.execute()
+    command1.execute(options1)
 
 if __name__ == "__main__":
     main()
