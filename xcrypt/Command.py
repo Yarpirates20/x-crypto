@@ -18,7 +18,7 @@ Examples
 
 import argparse
 import sys
-from typing import List, Type, cast
+from typing import List
 import convert as convert
 
 
@@ -75,7 +75,7 @@ class Convert(Command):
         convert.display_results(options.input, result)
 
 
-def get_options(argv: List[str] = sys.argv[1:]) -> argparse.Namespace:
+"""def get_options(argv: List[str] = sys.argv[1:]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(prog="xcrypt")
     subparsers = parser.add_subparsers()
     convert_parser = subparsers.add_parser("convert")
@@ -85,14 +85,14 @@ def get_options(argv: List[str] = sys.argv[1:]) -> argparse.Namespace:
     if "command" not in options:
         parser.error("No command given")
     
-    return options
+    return options"""
 
 
 def main() -> None:
     """Main function"""
-    options = get_options(sys.argv[1:])
-    command = cast(Type[Command], options.command)
-    command.execute(options)
+    options1 = argparse.Namespace()
+    command1 = Convert()
+    command1.execute(options1)
 
 
 if __name__ == "__main__":
