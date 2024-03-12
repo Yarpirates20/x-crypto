@@ -24,15 +24,17 @@ import sys
 import os
 
 import argparse
-import convert, Command
-
+from typing import List
+import convert
+import Command
 
 
 def main() -> None:
-    """ Main function """
-    options1 = argparse.Namespace()
-    command1 = Command.Convert()
-    command1.execute(options1)
+    """Main function"""
+    options = argparse.Namespace()
+    command = Command.Convert()
+    command.execute(options)
+
 
 if __name__ == "__main__":
-        main()
+    main()
