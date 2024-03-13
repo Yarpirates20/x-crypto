@@ -35,13 +35,26 @@ from typing import List, Union
 
 #--------------------------------------------------
 def display_results(original_input: Union[str, int],
-                    converted: Union[int, str]) -> None:
+                    converted: Union[int, str] ) -> None:
     """ Display the results of the conversion to the user """
 
     print(f"\nOriginal input({type(original_input)}): {original_input}")
     print(f"Converted value({type(converted)}): {converted} ")
 
 #--------------------------------------------------
+def convert_output_type(output_type: str, result: Union[int, str]) -> Union[int, str]:
+    """ Convert the result to the desired output type """
+    if output_type == 'bin':
+        return bin(result)
+    elif output_type == 'hex':
+        return hex(result)
+    # elif output_type == 'int':
+    #     return int(result)
+    # elif output_type == 'base64':
+    #     return binascii.b2a_base64(result)
+    # elif output_type == 'str':
+    #     return str(result)
+
 def text2int(text: str) -> int:
     """ Converts a string to an integer """
     try:
@@ -89,7 +102,7 @@ def is_int_type(value: str) -> bool:
         return True
     except ValueError:
         return False
-    
+
 #--------------------------------------------------
 # Map type names to functions
 type_to_function = {'str': text2int, 'int': int2text}
@@ -120,12 +133,12 @@ def get_options(argv: List[str] = sys.argv[1:]) -> argparse.Namespace:
     #                             type=string_type,
     #                             help='String to convert'
     #                             )
-    
-    
-    convert_parser.add_argument('-o', 
+
+
+    convert_parser.add_argument('-o',
                                 '--output',
                                 action='store',
-                                choices=['bin', 'hex', 'int', 'base64', 'str'],
+                                choices=['bin', 'hex'],
                                 default='hex',
                                 help='Output type')
 
@@ -141,8 +154,12 @@ def main() -> None:
     """ Main function """
     options = get_options(sys.argv[1:])
     conversion_function = type_to_function[options.type]
-
+    
     result = conversion_function(options.input)
+    
+    if options.output != 'str':
+        result = convert_output_type(options.output, result)
+
     display_results(options.input, result)
 
 

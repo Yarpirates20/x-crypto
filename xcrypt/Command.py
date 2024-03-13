@@ -72,20 +72,12 @@ class Convert(Command):
         conversion_function = convert.type_to_function[options.type]
 
         result = conversion_function(options.input)
+
+        if options.output != 'str':
+            result = convert.convert_output_type(options.output, result)
+
         convert.display_results(options.input, result)
 
-
-"""def get_options(argv: List[str] = sys.argv[1:]) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(prog="xcrypt")
-    subparsers = parser.add_subparsers()
-    convert_parser = subparsers.add_parser("convert")
-    Convert.arguments(convert_parser)
-
-    options = parser.parse_args(argv)
-    if "command" not in options:
-        parser.error("No command given")
-    
-    return options"""
 
 
 def main() -> None:
