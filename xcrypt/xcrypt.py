@@ -21,13 +21,10 @@ EXAMPLES
 """
 
 import sys
-import os
 
 import argparse
 from typing import List
-import convert_helpers
-import Command
-import Convert
+from Convert import Convert
 
 def get_options(argv: List[str] = sys.argv[1:]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(prog="xcrypt")

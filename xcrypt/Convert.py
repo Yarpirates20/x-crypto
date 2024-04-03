@@ -1,5 +1,5 @@
 import argparse
-import Command
+from Command import Command
 import convert_helpers
 from typing import List
 
