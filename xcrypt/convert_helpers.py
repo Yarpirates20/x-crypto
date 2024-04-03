@@ -111,62 +111,62 @@ def is_int_type(value: str) -> bool:
 type_to_function = {'str': text2int, 'int': int2text}
 
 #--------------------------------------------------
-def get_options(argv: List[str] = sys.argv[1:]) -> argparse.Namespace:
-    """ Get command line options """
-    parser = argparse.ArgumentParser(prog='xcrypt')
-    subparsers = parser.add_subparsers(title='subcommands',
-                                       help='conversion operations')
+# def get_options(argv: List[str] = sys.argv[1:]) -> argparse.Namespace:
+#     """ Get command line options """
+#     parser = argparse.ArgumentParser(prog='xcrypt')
+#     subparsers = parser.add_subparsers(title='subcommands',
+#                                        help='conversion operations')
 
-    convert_parser = subparsers.add_parser('convert')
-
-
-    convert_parser.add_argument('-t',
-                                '--type',
-                                action='store',
-                                choices=list(type_to_function.keys()),
-                                help='Type of input',
-                                default='str')
-
-    convert_parser.add_argument('input',
-                                action='store',
-                                help='Input to convert')
-    # convert_parser.add_argument('-s',
-    #                             '--string',
-    #                             action='store',
-    #                             type=string_type,
-    #                             help='String to convert'
-    #                             )
+#     convert_parser = subparsers.add_parser('convert')
 
 
-    convert_parser.add_argument('-o',
-                                '--output',
-                                action='store',
-                                choices=['bin', 'hex'],
-                                default='hex',
-                                help='Output type')
+#     convert_parser.add_argument('-t',
+#                                 '--type',
+#                                 action='store',
+#                                 choices=list(type_to_function.keys()),
+#                                 help='Type of input',
+#                                 default='str')
 
-    options = parser.parse_args(argv)
+#     convert_parser.add_argument('input',
+#                                 action='store',
+#                                 help='Input to convert')
+#     # convert_parser.add_argument('-s',
+#     #                             '--string',
+#     #                             action='store',
+#     #                             type=string_type,
+#     #                             help='String to convert'
+#     #                             )
 
-    return options
+
+#     convert_parser.add_argument('-o',
+#                                 '--output',
+#                                 action='store',
+#                                 choices=['bin', 'hex'],
+#                                 default='hex',
+#                                 help='Output type')
+
+#     options = parser.parse_args(argv)
+
+#     return options
 
 #--------------------------------------------------
 # def convert_input(user_input: Union[str, int] )
 
 #--------------------------------------------------
-def main() -> None:
-    """ Main function """
-    options = get_options(sys.argv[1:])
-    conversion_function = type_to_function[options.type]
+# def main() -> None:
+#     """ Main function """
+#     options = get_options(sys.argv[1:])
+#     conversion_function = type_to_function[options.type]
 
-    result = conversion_function(options.input)
+#     result = conversion_function(options.input)
 
-    if options.output != 'str':
-        result = convert_output_type(options.output, result)
+#     if options.output != 'str':
+#         result = convert_output_type(options.output, result)
 
-    display_results(options.input, result)
+#     display_results(options.input, result)
 
 
 
 #--------------------------------------------------
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()

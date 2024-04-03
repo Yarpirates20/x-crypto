@@ -25,14 +25,15 @@ import os
 
 import argparse
 from typing import List
-import convert
+import convert_helpers
 import Command
+import Convert
 
 def get_options(argv: List[str] = sys.argv[1:]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(prog="xcrypt")
     subparsers = parser.add_subparsers()
     convert_parser = subparsers.add_parser("convert")
-    Command.Convert.arguments(convert_parser)
+    Convert.arguments(convert_parser)
 
     options = parser.parse_args(argv)
     if "command" not in options:
@@ -43,7 +44,7 @@ def get_options(argv: List[str] = sys.argv[1:]) -> argparse.Namespace:
 def main() -> None:
     """Main function"""
     options = get_options(sys.argv[1:])
-    command = Command.Convert()
+    command = Convert()
     command.execute(options)
 
 

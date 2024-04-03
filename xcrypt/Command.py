@@ -19,7 +19,7 @@ Examples
 import argparse
 import sys
 from typing import List
-import convert as convert
+import convert_helpers as convert_helpers
 
 
 class Command:
@@ -36,55 +36,55 @@ class Command:
         pass
 
 
-class Convert(Command):
+# class Convert(Command):
 
-    @classmethod
-    def arguments(cls, convert_parser: argparse.ArgumentParser) -> None:
-        convert_parser.add_argument(
-            "-t",
-            "--type",
-            action="store",
-            choices=list(convert.type_to_function.keys()),
-            help="Type of input",
-            default="str",
-        )
+#     @classmethod
+#     def arguments(cls, convert_parser: argparse.ArgumentParser) -> None:
+#         convert_parser.add_argument(
+#             "-t",
+#             "--type",
+#             action="store",
+#             choices=list(convert_helpers.type_to_function.keys()),
+#             help="Type of input",
+#             default="str",
+#         )
 
-        convert_parser.add_argument("input",
-                                    action="store",
-                                    help="Input to convert")
+#         convert_parser.add_argument("input",
+#                                     action="store",
+#                                     help="Input to convert")
 
-        convert_parser.add_argument(
-            "-o",
-            "--output",
-            action="store",
-            choices=["bin", "hex"],
-            help="Output type",
-        )
+#         convert_parser.add_argument(
+#             "-o",
+#             "--output",
+#             action="store",
+#             choices=["bin", "hex"],
+#             help="Output type",
+#         )
 
-        convert_parser.set_defaults(command=convert)
+#         convert_parser.set_defaults(command=convert_helpers)
 
-    def __init__(self) -> None:
-        super().__init__()
+#     def __init__(self) -> None:
+#         super().__init__()
 
-    def execute(self, options: argparse.Namespace) -> None:
-        """Execute the convert command"""
-        conversion_function = convert.type_to_function[options.type]
+#     def execute(self, options: argparse.Namespace) -> None:
+#         """Execute the convert command"""
+#         conversion_function = convert_helpers.type_to_function[options.type]
 
-        result = conversion_function(options.input)
+#         result = conversion_function(options.input)
 
-        if options.output != 'str':
-            result = convert.convert_output_type(options.output, result)
+#         if options.output != 'str':
+#             result = convert_helpers.convert_output_type(options.output, result)
 
-        convert.display_results(options.input, result)
-
-
-
-def main() -> None:
-    """Main function"""
-    options1 = argparse.Namespace()
-    command1 = Convert()
-    command1.execute(options1)
+#         convert_helpers.display_results(options.input, result)
 
 
-if __name__ == "__main__":
-    main()
+
+# def main() -> None:
+#     """Main function"""
+#     options1 = argparse.Namespace()
+#     command1 = Convert()
+#     command1.execute(options1)
+
+
+# if __name__ == "__main__":
+#     main()
