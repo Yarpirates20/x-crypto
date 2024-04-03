@@ -42,12 +42,15 @@ def display_results(original_input: Union[str, int],
     print(f"Converted value({type(converted)}): {converted} ")
 
 #--------------------------------------------------
-def convert_output_type(output_type: str, result: Union[int, str]) -> Union[int, str]:
+def convert_output_type(output_type: str,
+                        result: Union[int, str]) -> Union[int, str]:
     """ Convert the result to the desired output type """
     if output_type == 'bin':
         return bin(result)
     elif output_type == 'hex':
         return hex(result)
+    else:
+        return result
     # elif output_type == 'int':
     #     return int(result)
     # elif output_type == 'base64':
@@ -154,9 +157,9 @@ def main() -> None:
     """ Main function """
     options = get_options(sys.argv[1:])
     conversion_function = type_to_function[options.type]
-    
+
     result = conversion_function(options.input)
-    
+
     if options.output != 'str':
         result = convert_output_type(options.output, result)
 

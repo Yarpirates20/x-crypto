@@ -57,8 +57,7 @@ class Convert(Command):
             "-o",
             "--output",
             action="store",
-            choices=["bin", "hex", "int", "base64", "str"],
-            default="hex",
+            choices=["bin", "hex"],
             help="Output type",
         )
 
